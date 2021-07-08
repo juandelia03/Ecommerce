@@ -6,8 +6,8 @@
           OUR STELAR PRODUCTS
         </h3>
       </div>
-      <Form :style="style" @hide="hide" />
-      <Product :add="true" @open="form" />
+      <Form :style="style" @hide="hide" @refresh="refresh" />
+      <Product :add="true" @open="form" @added="refresh()" />
       <Product
         v-for="(product, index) in productsDos"
         v-bind:key="index"
@@ -34,43 +34,23 @@ export default {
     form() {
       this.style = { visibility: 'visible' }
     },
+    refresh() {
+      this.productsDos = []
+      var db = firebase.firestore()
+      db.collection('products')
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.productsDos.push(doc.data())
+          })
+        })
+    },
     hide() {
       this.style = { visibility: 'hidden' }
     },
   },
   data() {
     return {
-      // products: {
-      //   1: {
-      //     description: 'An awesome Guitar',
-      //     name: 'Guitar',
-      //     price: ' USD $160',
-      //     thumbnail:
-      //       'https://m.media-amazon.com/images/I/71vrKE2t16L._AC_UL320_.jpg',
-      //   },
-      //   2: {
-      //     description: 'An awesome Drummer made just for you, awesome right?',
-      //     name: 'Drummer model xyz',
-      //     price: ' USD $250',
-      //     thumbnail:
-      //       'https://images-na.ssl-images-amazon.com/images/I/71lmAXDLd9L._AC_UL200_SR200,200_.jpg',
-      //   },
-      //   3: {
-      //     description:
-      //       'A very cool piano keyboard, for you to feel the music in your life',
-      //     name: 'Piano Keyboard',
-      //     price: ' USD $500',
-      //     thumbnail:
-      //       'https://m.media-amazon.com/images/I/91CS0eGcsXL._AC_UL320_.jpg',
-      //   },
-      //   4: {
-      //     description: 'A powerfull bass made for those who love music ',
-      //     name: 'Bass',
-      //     price: ' USD $200',
-      //     thumbnail:
-      //       'https://m.media-amazon.com/images/I/71zbsfWk-NL._AC_UL320_.jpg',
-      //   },
-      // },
       productsDos: [],
       style: { visibility: 'hidden' },
       isLogged: false,

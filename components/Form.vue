@@ -84,6 +84,7 @@ export default {
       this.price = ''
       this.thumbnail = ''
       this.$emit('hide')
+      this.$emit('refresh')
     },
   },
 }
