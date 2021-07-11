@@ -7,31 +7,36 @@
       crossorigin="anonymous"
     />
     <Navbar :usuario="user" />
-    <div v-if="store.length > 0" class="view flex justify-center pt-24">
-      <div class="flex flex-col items-center">
-        <h2 class="cart-t">YOUR CART</h2>
-        <div class="line"></div>
-        <div style="margin-top: 80px">
-          <div class="lines" v-if="store.length != 0"></div>
-          <Item
-            v-for="(product, index) in store"
-            :key="index"
-            :name="product.name"
-            :price="product.price"
-            :pic="product.thumbnail"
-            :i="index"
-            :amount="product.amount"
-            @itemDeleted="dlt"
-          />
-          <div class="total" v-if="store.length > 0">
-            <p class="tot">Continue to checkout</p>
+    <div :style="loading">
+      <div v-if="store.length > 0" class="view flex justify-center pt-24">
+        <div class="flex flex-col items-center">
+          <h2 class="cart-t">YOUR CART</h2>
+          <div class="line"></div>
+          <div style="margin-top: 80px">
+            <div class="lines" v-if="store.length != 0"></div>
+            <Item
+              v-for="(product, index) in store"
+              :key="index"
+              :name="product.name"
+              :price="product.price"
+              :pic="product.thumbnail"
+              :i="index"
+              :amount="product.amount"
+              @itemDeleted="dlt"
+            />
+            <div class="total" v-if="store.length > 0">
+              <p class="tot">Continue to checkout</p>
+            </div>
           </div>
         </div>
+        <div></div>
       </div>
-      <div></div>
+      <div v-else class="view flex justify-center pt-24">
+        <h2 class="cart-t">YOUR CART IS CURRENTLY EMPTY</h2>
+      </div>
     </div>
-    <div v-else class="view flex justify-center pt-24">
-      <h2 class="cart-t">YOUR CART IS CURRENTLY EMPTY</h2>
+    <div v-if="wait == true" class="loader-wrapper">
+      <span class="loader"><span class="loader-inner"></span></span>
     </div>
   </div>
 </template>
@@ -50,16 +55,17 @@ export default {
   data() {
     return {
       store: [],
+      user: '',
+      loading: {
+        display: 'none',
+      },
+      wait: true,
     }
   },
   methods: {
     dlt(e) {
       var user = firebase.auth().currentUser
       let newS = []
-      // this.store.splice(
-      //   this.store.findIndex((item) => item.name === e),
-      //   1
-      // )
       var docRef = db
         .collection('users')
         .doc(user.email.split('@')[0])
@@ -75,8 +81,13 @@ export default {
     },
   },
   created() {
+    setTimeout(() => {
+      this.loading = {}
+      this.wait = false
+    }, 500)
     var user = firebase.auth().currentUser
     if (user) {
+      this.user = firebase.auth().currentUser.email.split('@')[0]
       var docRef = db
         .collection('users')
         .doc(user.email.split('@')[0])
@@ -88,8 +99,6 @@ export default {
           this.store.push(doc.data().cart[0])
         })
       })
-    } else {
-      console.log('No user is signed in.')
     }
   },
 }

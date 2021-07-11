@@ -23,13 +23,16 @@
 <script>
 import firebase from 'firebase/app'
 import firestore from 'firebase/firestore'
-
+import Fuse from 'fuse.js'
 import Product from './Product.vue'
 import Form from './Form.vue'
 export default {
   components: { Product, Form },
   name: 'Boody',
   components: [Product],
+  props: {
+    searchStr: String,
+  },
   methods: {
     form() {
       this.style = { visibility: 'visible' }
@@ -48,12 +51,49 @@ export default {
     hide() {
       this.style = { visibility: 'hidden' }
     },
+    search() {
+      const options = {
+        includeScore: true,
+        useExtendedSearch: true,
+        keys: ['name'],
+      }
+      console.log(this.ProductsDos)
+      const fuse = new Fuse(this.productsDos, options)
+      console.log(fuse.search('bass'))
+    },
+  },
+  watch: {
+    searchStr: function (newStr) {
+      if (newStr !== '' && newStr !== null) {
+        const options = {
+          includeScore: true,
+          useExtendedSearch: true,
+          keys: ['name', 'description'],
+        }
+        const fuse = new Fuse(this.lookHere, options)
+        let result = fuse.search(newStr)
+        var db = firebase.firestore()
+        this.productsDos = []
+        result.forEach((e) => this.productsDos.push(e.item))
+      } else {
+        this.productsDos = []
+        var db = firebase.firestore()
+        db.collection('products')
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              this.productsDos.push(doc.data())
+            })
+          })
+      }
+    },
   },
   data() {
     return {
       productsDos: [],
       style: { visibility: 'hidden' },
       isLogged: false,
+      lookHere: [],
     }
   },
   created() {
@@ -65,6 +105,7 @@ export default {
           this.productsDos.push(doc.data())
         })
       })
+    this.lookHere = this.productsDos
   },
 }
 </script>

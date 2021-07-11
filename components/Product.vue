@@ -40,9 +40,9 @@ export default {
 
     adds() {
       var user = firebase.auth().currentUser
+      console.log(user)
       if (user) {
         const username = firebase.auth().currentUser.email.split('@')[0]
-
         db.collection('users')
           .doc(username)
           .collection('carrito')
@@ -124,10 +124,10 @@ export default {
 .add {
   color: white;
   font-size: 50px;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .admin {
   display: flex;

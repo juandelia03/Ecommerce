@@ -23,8 +23,10 @@
           type="text"
           style="margin-left: 10px"
           placeholder="Search products"
+          v-model="content"
+          @keyup.enter="$emit('search', content)"
         />
-        <button class="p-2">
+        <button class="p-2" @click="$emit('search', content)">
           <svg
             width="24"
             height="24"
@@ -59,12 +61,13 @@
 export default {
   name: 'NavBar',
   props: {
-    datos: Object,
     usuario: String,
   },
   methods: {},
-  created() {
-    console.log(this.user)
+  data() {
+    return {
+      content: '',
+    }
   },
 }
 </script>
@@ -105,6 +108,10 @@ h3 {
 }
 .world {
   transition: 0.22s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .img {
   width: 200px;

@@ -124,7 +124,6 @@ export default {
         .collection('carrito')
         .doc(this.name)
         .delete()
-
       this.$emit('itemDeleted', this.name)
     },
   },
