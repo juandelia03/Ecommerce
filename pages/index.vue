@@ -45,6 +45,9 @@ export default {
         this.user = firebase.auth().currentUser.email.split('@')[0]
         this.loading = {}
         this.wait = false
+      } else {
+        this.loading = {}
+        this.wait = false
       }
     }, 1900)
   },
