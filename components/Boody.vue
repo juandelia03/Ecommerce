@@ -116,6 +116,9 @@ export default {
 * {
   font-family: roboto;
 }
+.view {
+  width: 100vw;
+}
 .ml-32 {
   margin-left: 190px;
 }
