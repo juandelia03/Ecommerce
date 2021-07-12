@@ -52,7 +52,12 @@
           <i class="fas fa-user remove"></i>
         </div>
         <nuxt-link to="cart">
-          <i class="fas fa-shopping-cart cart"></i>
+          <div class="flex items-center">
+            <i class="fas fa-shopping-cart cart"></i>
+            <div class="numerito">
+              <h6>{{ amount }}</h6>
+            </div>
+          </div>
         </nuxt-link>
       </div>
     </div>
@@ -65,12 +70,40 @@
 <script>
 import firebase from 'firebase/app'
 import auth from 'firebase/auth'
+import firestore from 'firebase/firestore'
+const db = firebase.firestore()
 export default {
   name: 'NavBar',
   props: {
     usuario: String,
   },
+  created() {
+    setTimeout(() => {
+      let username = firebase.auth().currentUser.email.split('@')[0]
+      db.collection('users')
+        .doc(username)
+        .collection('carrito')
+        .onSnapshot(() => {
+          this.number()
+        })
+    }, 1000)
+    this.number()
+  },
   methods: {
+    async number() {
+      const username = firebase.auth().currentUser.email.split('@')[0]
+      db.collection('users')
+        .doc(username)
+        .collection('carrito')
+        .get()
+        .then((querySnapshot) => {
+          this.amount = []
+          querySnapshot.forEach((doc) => {
+            this.amount.push(doc)
+          })
+          this.amount = this.amount.length
+        })
+    },
     logout() {
       firebase.auth().signOut()
       location.reload()
@@ -90,6 +123,7 @@ export default {
       content: '',
       visibility: { visibility: 'hidden' },
       open: false,
+      amount: 0,
     }
   },
 }
@@ -120,6 +154,21 @@ input:focus-visible {
   border-color: lightgray;
   border-width: 1px;
 }
+.numerito {
+  position: relative;
+  right: 23px;
+  top: 10px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background-color: #00c58e;
+  color: white;
+  width: 16px;
+  height: 16px;
+}
+
 h3 {
   font-weight: 400;
   font-family: roboto;
@@ -191,6 +240,9 @@ h3:hover {
 }
 .cart:hover {
   color: #00c58e;
+}
+.cart:hover + .numerito {
+  background-color: black;
 }
 
 @media (max-width: 1712px) {

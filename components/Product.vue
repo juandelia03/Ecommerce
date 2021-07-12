@@ -40,7 +40,6 @@ export default {
 
     adds() {
       var user = firebase.auth().currentUser
-      console.log(user)
       if (user) {
         const username = firebase.auth().currentUser.email.split('@')[0]
         db.collection('users')

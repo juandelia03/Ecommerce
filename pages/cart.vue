@@ -64,22 +64,18 @@ export default {
   },
   methods: {
     dlt(e) {
-      setTimeout(() => {
-        this.store = []
-      }, 500)
       var user = firebase.auth().currentUser
       let newS = []
       var docRef = db
         .collection('users')
         .doc(user.email.split('@')[0])
         .collection('carrito')
-      setTimeout(() => {
-        docRef.get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.store.push(doc.data().cart[0])
-          })
+      docRef.get().then((querySnapshot) => {
+        this.store = []
+        querySnapshot.forEach((doc) => {
+          this.store.push(doc.data().cart[0])
         })
-      }, 300)
+      })
     },
   },
   created() {
