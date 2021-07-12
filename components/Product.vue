@@ -73,7 +73,8 @@ export default {
   align-content: center;
   justify-content: center;
   background-color: white;
-  height: 450px;
+  min-height: 450px;
+  height: auto;
   width: 320px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
