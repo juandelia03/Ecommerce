@@ -70,6 +70,7 @@ export default {
 .view {
   height: 130%;
   background: #f5f1ee;
+  min-height: 100vh;
 }
 .loader-wrapper {
   width: 100%;
