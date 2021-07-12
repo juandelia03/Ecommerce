@@ -81,11 +81,11 @@ export default {
     },
   },
   created() {
-    // setTimeout(() => {
-    //   this.loading = {}
-    //   this.wait = false
-    // }, 500)
     var user = firebase.auth().currentUser
+    if (!user) {
+      this.loading = {}
+      this.wait = false
+    }
     if (user) {
       this.user = firebase.auth().currentUser.email.split('@')[0]
       var docRef = db
