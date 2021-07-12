@@ -147,13 +147,7 @@ export default {
 }
 img {
   height: 78px;
-  /* border-right: solid;
-  border-width: 1px; */
   padding: 0px 10px;
-  /* border-color: lightgray;
-  border-left: none;
-  border-bottom: none;
-  border-top: none; */
 }
 .name {
   border: none;
