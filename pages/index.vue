@@ -8,7 +8,7 @@
     />
     <div>
       <Navbar :usuario="user" @search="search" />
-      <Boody :style="loading" :searchStr="str" />
+      <Boody :style="loading" :searchStr="str" @load="test" />
       <div v-if="wait == true" class="loader-wrapper">
         <span class="loader"><span class="loader-inner"></span></span>
       </div>
@@ -36,20 +36,33 @@ export default {
     search(e) {
       this.str = e
     },
+    test() {
+      setTimeout(() => {
+        var user = firebase.auth().currentUser
+        if (user) {
+          this.user = firebase.auth().currentUser.email.split('@')[0]
+          this.loading = {}
+          this.wait = false
+        } else {
+          this.loading = {}
+          this.wait = false
+        }
+      }, 1)
+    },
   },
 
   created() {
-    setTimeout(() => {
-      var user = firebase.auth().currentUser
-      if (user) {
-        this.user = firebase.auth().currentUser.email.split('@')[0]
-        this.loading = {}
-        this.wait = false
-      } else {
-        this.loading = {}
-        this.wait = false
-      }
-    }, 1900)
+    // setTimeout(() => {
+    //   var user = firebase.auth().currentUser
+    //   if (user) {
+    //     this.user = firebase.auth().currentUser.email.split('@')[0]
+    //     this.loading = {}
+    //     this.wait = false
+    //   } else {
+    //     this.loading = {}
+    //     this.wait = false
+    //   }
+    // }, 1900)
   },
 }
 </script>

@@ -113,6 +113,7 @@ export default {
     db.collection('products')
       .get()
       .then((querySnapshot) => {
+        this.$emit('load')
         querySnapshot.forEach((doc) => {
           this.productsDos.push(doc.data())
         })
@@ -143,9 +144,7 @@ export default {
   font-weight: 300;
   font-size: 20px;
 }
-.view {
-  width: 100vw;
-}
+
 .ml-32 {
   margin-left: 190px;
 }

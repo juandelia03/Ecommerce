@@ -66,12 +66,14 @@ export default {
     dlt(e) {
       var user = firebase.auth().currentUser
       let newS = []
+      setTimeout(() => {
+        this.store = []
+      }, 1)
       var docRef = db
         .collection('users')
         .doc(user.email.split('@')[0])
         .collection('carrito')
       docRef.get().then((querySnapshot) => {
-        this.store = []
         querySnapshot.forEach((doc) => {
           this.store.push(doc.data().cart[0])
         })
@@ -79,10 +81,10 @@ export default {
     },
   },
   created() {
-    setTimeout(() => {
-      this.loading = {}
-      this.wait = false
-    }, 500)
+    // setTimeout(() => {
+    //   this.loading = {}
+    //   this.wait = false
+    // }, 500)
     var user = firebase.auth().currentUser
     if (user) {
       this.user = firebase.auth().currentUser.email.split('@')[0]
@@ -94,6 +96,8 @@ export default {
       docRef.get().then((querySnapshot) => {
         //this.store = doc.data().cart
         querySnapshot.forEach((doc) => {
+          this.loading = {}
+          this.wait = false
           this.store.push(doc.data().cart[0])
         })
       })
