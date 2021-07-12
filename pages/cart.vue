@@ -82,7 +82,7 @@ export default {
   },
   created() {
     var user = firebase.auth().currentUser
-    if (!user) {
+    if (user === null) {
       this.loading = {}
       this.wait = false
     }
