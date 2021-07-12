@@ -95,9 +95,9 @@ export default {
 
       docRef.get().then((querySnapshot) => {
         //this.store = doc.data().cart
+        this.loading = {}
+        this.wait = false
         querySnapshot.forEach((doc) => {
-          this.loading = {}
-          this.wait = false
           this.store.push(doc.data().cart[0])
         })
       })
