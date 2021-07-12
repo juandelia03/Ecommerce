@@ -187,7 +187,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: solid;
+
   height: 80px;
   width: 30%;
   border-width: 0px;

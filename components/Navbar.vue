@@ -150,7 +150,6 @@ input:focus-visible {
 .nav-bar {
   height: auto;
   border: none;
-  border-bottom: solid;
   border-color: lightgray;
   border-width: 1px;
 }
