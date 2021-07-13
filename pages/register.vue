@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col justify-center items-center m-32">
     <h1 class="title">Register</h1>
+    <p class="errHandler">{{ error }}</p>
     <form
       class="flex flex-col justify-center items-center"
       @submit.prevent="register"
@@ -37,6 +38,7 @@ export default {
     return {
       email: '',
       password: '',
+      error: '',
     }
   },
   methods: {
@@ -69,6 +71,7 @@ export default {
         .catch((error) => {
           var errorCode = error.code
           var errorMessage = error.message
+          this.error = errorMessage
           // ..
         })
       this.email = ''
@@ -116,5 +119,10 @@ export default {
 }
 .register:hover {
   color: #00c58e;
+}
+.errHandler {
+  margin: 24px;
+  color: red;
+  font-weight: 200;
 }
 </style>

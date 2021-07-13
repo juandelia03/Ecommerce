@@ -2,14 +2,16 @@
   <div class="view">
     <div class="flex justify-center pb-10 pt-10 mx-20 flex-wrap gap-40">
       <div class="flex" style="width: 3200px">
+        <div class="test">
+          <label class="switch">
+            <p class="admin-view">admin view</p>
+            <input type="checkbox" @click="adminToggle" />
+            <span class="slider round"></span>
+          </label>
+        </div>
         <h3 class="stelar" style="width: 3000px; margin: auto">
           OUR STELAR PRODUCTS
         </h3>
-        <label class="switch">
-          <p class="admin-view">admin view</p>
-          <input type="checkbox" @click="adminToggle" />
-          <span class="slider round"></span>
-        </label>
       </div>
       <Form :style="style" @hide="hide" @refresh="refresh" />
       <Product
@@ -219,6 +221,16 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+@media (max-width: 800px) {
+  .admin-view {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .switch {
+    left: 0;
+  }
 }
 </style>
 Product

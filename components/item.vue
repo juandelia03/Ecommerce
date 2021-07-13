@@ -193,4 +193,23 @@ p {
   border-width: 0px;
   border-color: lightgray;
 }
+@media (max-width: 1000px) {
+  .item {
+    width: 800px;
+    height: 100px;
+    background: white;
+    border: solid;
+    border-width: 1px;
+    border-top: 0px;
+    border-color: lightgray;
+  }
+}
+@media (max-width: 805px) {
+  .item {
+    width: 400px;
+    height: 100px;
+    background: white;
+    margin: auto;
+  }
+}
 </style>

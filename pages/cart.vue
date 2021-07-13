@@ -154,4 +154,35 @@ export default {
 .tot:hover {
   color: #00c58e;
 }
+@media (max-width: 1023px) {
+  .total {
+    display: flex;
+    height: 70px;
+    width: 768px;
+    border: solid;
+    border-color: lightgray;
+    border-top: none;
+    border-width: 1px;
+    background-color: white;
+    align-items: center;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+  }
+}
+@media (max-width: 805px) {
+  .total {
+    display: flex;
+    height: 70px;
+    width: 400px;
+    border: solid;
+    border-color: lightgray;
+    border-top: none;
+    border-width: 1px;
+    background-color: white;
+    align-items: center;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin: auto; 
+  }
+}
 </style>

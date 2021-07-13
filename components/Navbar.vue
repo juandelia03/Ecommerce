@@ -8,7 +8,7 @@
           /></nuxt-link>
         </div>
 
-        <div class="world flex gap-4 items-center">
+        <div class="world flex gap-4 items-center xd">
           <h3>SHIPPING ALL OVER THE WORLD</h3>
           <i class="fas fa-globe-americas remove"></i>
         </div>
@@ -43,12 +43,12 @@
         </div>
         <nuxt-link to="/login" v-if="usuario == null">
           <div class="world flex gap-4 items-center">
-            <h3>LOGIN</h3>
+            <h6>LOGIN</h6>
             <i class="fas fa-user remove"></i>
           </div>
         </nuxt-link>
         <div class="world flex gap-4 items-center" v-else @click="popUp">
-          <h3>{{ usuario }}</h3>
+          <h6>{{ usuario }}</h6>
           <i class="fas fa-user remove"></i>
         </div>
         <nuxt-link to="cart">
@@ -174,6 +174,12 @@ h3 {
   cursor: pointer;
   transition: 0.22s;
 }
+h6 {
+  font-weight: 400;
+  font-family: roboto;
+  cursor: pointer;
+  transition: 0.22s;
+}
 .i {
   transition: 0.22s;
 }
@@ -224,6 +230,9 @@ svg {
   fill: white;
 }
 h3:hover {
+  color: #00c58e;
+}
+h6:hover {
   color: #00c58e;
 }
 .world:hover h3 {
@@ -281,12 +290,32 @@ h3:hover {
     display: none;
   }
 }
-@media (max-width: 530px) {
+@media (max-width: 492px) {
   input {
-    width: 300px;
+    width: 100px;
   }
-  .gap-10 {
-    gap: 0rem;
+  button {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  input {
+    width: 250px;
+  }
+}
+@media (max-width: 400px) {
+  input {
+    width: 100px;
+  }
+}
+@media (max-width: 458px) {
+  input {
+    width: 200px;
+  }
+}
+@media (max-width: 405px) {
+  input {
+    width: 170px;
   }
 }
 </style>
